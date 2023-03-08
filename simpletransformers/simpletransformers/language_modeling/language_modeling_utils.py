@@ -153,6 +153,8 @@ class SimpleDataset(Dataset):
 class DocumentDataset(Dataset):
     def __init__(self, tokenizer, args, file_path, block_size=514, special_tokens_count=2, sliding_window=False):
         logger.info(f" DocumentDataset - {file_path}")
+        # print(file_path)
+        # file_path="../"+file_path
         assert os.path.isfile(file_path)
         self.tokenizer = tokenizer
 

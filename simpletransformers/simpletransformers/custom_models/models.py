@@ -645,7 +645,7 @@ class ElectraForLanguageModelingModel(PreTrainedModel):
 
             if self.random_generator:
                 sampled_tokens = torch.randint(5, self.vocab_size-1, sampled_tokens.shape)
-                sampled_tokens = sampled_tokens.cuda()
+                # sampled_tokens = sampled_tokens.cuda()
 
             # labels have a -100 value to mask out loss from unchanged tokens.
             mask = masked_lm_labels.ne(-100)

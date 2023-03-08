@@ -869,7 +869,7 @@ class LanguageModelingModel:
                                       batch_size=args.train_batch_size,
                                       sampler=train_sampler,
                                       collate_fn=collate,
-                                      num_workers=4)
+                                      num_workers=0)
 
         if self.extra_args['extract_repr']:
             train_sampler_repr = RandomSampler(train_dataset) if args.local_rank == -1 else DistributedSampler(train_dataset)
@@ -1503,7 +1503,7 @@ class LanguageModelingModel:
                                 padding_value=tokenizer.pad_token_id)
 
         eval_bs = self.extra_args["anomaly_batch_size"]
-        num_workers = 4
+        num_workers = 0
 
         eval_outlier_sampler = SequentialSampler(eval_outlier_dataset)
         eval_outlier_dataloader = DataLoader(eval_outlier_dataset,

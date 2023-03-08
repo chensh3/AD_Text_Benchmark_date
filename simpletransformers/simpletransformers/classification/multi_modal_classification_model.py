@@ -71,7 +71,7 @@ class MultiModalClassificationModel:
         num_labels=None,
         pos_weight=None,
         args=None,
-        use_cuda=True,
+        use_cuda=False,
         cuda_device=-1,
         **kwargs,
     ):

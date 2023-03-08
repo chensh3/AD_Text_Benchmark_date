@@ -135,7 +135,7 @@ def run_exps():
 
     train_args = {
         "fp16": False,
-        "use_multiprocessing": False,
+        "use_multiprocessing": True,
         "reprocess_input_data": False,
         "overwrite_output_dir": True,
         "num_train_epochs": 20,
@@ -181,7 +181,7 @@ def run_exps():
         "extract_reps": extract_reps,
         "weight_decay": weight_decay,
         "optimizer": optimizer,
-        "scores_export_path": f"./token_scores/{run_name}/",
+        "scores_export_path": f"../token_scores/{run_name}/",
         "generator_config": {
             "embedding_size": 128,
             "hidden_size": gen_hid_size,
@@ -205,18 +205,18 @@ def run_exps():
         date_time = now.strftime("%m%d%Y_%H%M%S")
 
         if preprocessed:
-            train_file = f"./datasets/ag_od/train/{subset_r}.txt"
-            test_file = f"./datasets/ag_od/test/{subset_r}.txt"
-            outlier_file = f"./datasets/ag_od/test/{subset_r}-outliers.txt"
+            train_file = f"../datasets/ag_od/train/{subset_r}.txt"
+            test_file = f"../datasets/ag_od/test/{subset_r}.txt"
+            outlier_file = f"../datasets/ag_od/test/{subset_r}-outliers.txt"
         if contamination != 0:
-            train_file = f"./datasets/ag_od/train/{subset_r}-contaminated/{subset_r}_c{int(contamination)}.txt"
+            train_file = f"../datasets/ag_od/train/{subset_r}-contaminated/{subset_r}_c{int(contamination)}.txt"
 
         model = LanguageModelingModel("electra",
                                       None,
                                       masks=masks_,
                                       args=train_args,
                                       train_files=train_file,
-                                      use_cuda=True)
+                                      use_cuda=False)
 
         model.train_model_anomaly(train_file,
                                   eval_file=test_file,
@@ -224,4 +224,5 @@ def run_exps():
                                   sched_params=sched_params)
 
 
+# freeze_support()
 run_exps()
